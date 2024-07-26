@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mouse Position Tracker</title>
+    <style>
+        .container {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            position: relative;
+        }
+        .active {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        Move your mouse here to track its position:
+        <div class="output"></div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const output = document.querySelector('.output');
+    
+        container.addEventListener('mouseover', () => {
+            container.classList.add('active');
+        });
+    
+        container.addEventListener('mouseout', () => {
+            container.classList.remove('active');
+        });
+    
+        container.addEventListener('mousemove', (event) => {
+            const x = event.clientX - container.offsetLeft;
+            const y = event.clientY - container.offsetTop;
+            output.textContent = `Mouse X: ${x}, Mouse Y: ${y}`;
+        });
+    </script>
+
+</body>
+</html>
