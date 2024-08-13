@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<title>Complete JavaScript Course</title>
+</head>
+<body>
+<span class="val1"></span> <span>+</span> <span class="val2"></
+span> = <span>
+<input type="text" name="answer"></span><button>Check</button>
+<div class="output"></div>
+
+
+<script>
+    function app() {
+        const val1 = document.querySelector('.val1');
+        const val2 = document.querySelector('.val2');
+        const answerInput = document.querySelector('input[name="answer"]');
+        const checkButton = document.querySelector('button');
+        const output = document.querySelector('.output');
+        const game = {};
+
+        function init() {
+            checkButton.addEventListener('click', checker);
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            game.val1 = generateRandomNumber(1, 10);
+            game.val2 = generateRandomNumber(1, 10);
+            game.result = game.val1 + game.val2;
+
+            val1.textContent = game.val1;
+            val2.textContent = game.val2;
+            answerInput.value = '';
+        }
+
+        function generateRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function checker() {
+            const userAnswer = parseInt(answerInput.value);
+            const resultText = (userAnswer === game.result) ? 'Correct' : 'Incorrect';
+            const color = (userAnswer === game.result) ? 'green' : 'red';
+
+            const outputText = `${game.val1} + ${game.val2} = ${game.result} (${userAnswer}) - ${resultText}`;
+            const resultElement = document.createElement('div');
+            resultElement.style.color = color;
+            resultElement.textContent = outputText;
+            output.appendChild(resultElement);
+
+            loadQuestion();
+        }
+
+        init();
+    }
+
+    document.addEventListener('DOMContentLoaded', app);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Complete JavaScript Course</title>
+</head>
+
+<body>
+    <textarea name="txtarea" rows=2 cols=50></textarea> <button>Get
+        Emails</button>
+    <textarea name="txtarea2" rows=2 cols=50></textarea>
+    <script>
+        const txtarea1 = document.querySelector('textarea[name="txtarea"]');
+        const txtarea2 = document.querySelector('textarea[name="txtarea2"]');
+        const button = document.querySelector('button');
+
+        button.addEventListener('click', extractEmails);
+
+        function extractEmails() {
+            const content = txtarea1.value;
+            const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
+            const emails = content.match(emailRegex) || [];
+
+            const uniqueEmails = [];
+            emails.forEach(email => {
+                if (!uniqueEmails.includes(email)) {
+                    uniqueEmails.push(email);
+                }
+            });
+
+            txtarea2.value = uniqueEmails.join('\n');
+        }
+    </script>
+</body>
+
+</html>

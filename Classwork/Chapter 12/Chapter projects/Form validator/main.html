@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>JavaScript Course</title>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+            font-family: sans-serif;
+            font-style: italic;
+        }
+
+        input {
+            border-color: #ddd;
+            width: 400px;
+            display: block;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="myform"> Email :
+        <input type="text" name="email"> <span class="error hide"></ <br> Password :
+            <input type="password" name="password"> <span class="error
+hide"></span>
+            <br> User Name :
+            <input type="text" name="userName"> <span class="error hide"></ span>
+                <br>
+                <input type="submit" value="Sign Up">
+    </form>
+
+    <script>
+        const form = document.forms['myform'];
+        const errorElements = document.querySelectorAll('.error');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            errorElements.forEach(error => error.classList.add('hide'));
+
+            const email = form.elements['email'].value;
+            const password = form.elements['password'].value;
+            const userName = form.elements['userName'].value;
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let error = false;
+
+            if (!emailRegex.test(email)) {
+                showError(form.elements['email']);
+                error = true;
+            }
+
+            if (!/^[a-zA-Z0-9]{3,8}$/.test(password)) {
+                showError(form.elements['password'], 'Password must be 3-8 characters and contain only letters and numbers.');
+                error = true;
+            }
+
+            if (error) {
+                return;
+            }
+
+            const formData = {};
+            for (const input of form.elements) {
+                if (input.type !== 'submit') {
+                    formData[input.name] = input.value;
+                }
+            }
+
+            console.log(formData);
+        });
+
+        function showError(element, message = 'Please enter a valid value.') {
+            const errorElement = element.nextElementSibling;
+            errorElement.textContent = message;
+            errorElement.classList.remove('hide');
+            element.focus();
+        }
+    </script>
+
+</body>
+
+</html>

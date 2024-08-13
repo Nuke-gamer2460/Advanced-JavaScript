@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click Tracking</title>
+</head>
+<body>
+    <div id="mainContainer">
+        <div class="box" id="box1">Box 1</div>
+        <div class="box" id="box2">Box 2</div>
+        <div class="box" id="box3">Box 3</div>
+        <div class="box" id="box4">Box 4</div>
+    </div>
+    <script>
+        const trackingArray = [];
+
+        const mainContainer = document.getElementById('mainContainer');
+        mainContainer.addEventListener('click', (event) => {
+            const targetElement = event.target;
+
+            if (targetElement.id !== 'mainContainer') {
+                const clickDetails = {
+                    textContent: targetElement.textContent,
+                    id: targetElement.id,
+                    tagName: targetElement.tagName,
+                    className: targetElement.className
+                };
+
+                trackingArray.push(clickDetails);
+                console.log(trackingArray);
+            }
+        });
+    </script>
+</body>
+</html>
